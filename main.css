@@ -1,0 +1,23 @@
+/*palette colors:
+black: #000000
+pink: #EC576B
+aqua: #4EC5C1
+lime: #ECE338
+white: #FFFFFF
+*/
+
+body {
+   background-color: #FFFFFF;
+   text-align:center;
+   font-size: 16px;
+   font-family: 'Raleway', sans-serif;
+}
+
+.welcome {
+   padding-top: 5%;
+   font-size: 2em;
+   color: #4EC5C1;
+}
+.password {
+   visibility: hidden;
+}

@@ -8,7 +8,7 @@ var tones = [16.35, 17.32, 18.35, 19.45, 20.6, 21.83, 23.12, 24.5, 25.96, 27.5,
 349.23, 369.99, 392.0, 415.3, 440.0, 466.16, 493.88, 523.25, 554.37, 587.33,
 622.25, 659.25, 698.46, 739.99, 783.99, 830.61, 880.0, 932.33, 987.77, 1046.5,
 1108.73, 1174.66, 1244.51, 1318.51, 1396.91, 1479.98, 1567.98, 1661.22, 1760.0,
-1864.66, 1975.53, 2093.0, 2217.46, 2349.32, 2489.02, 2637.02, 2793.83, 2959.96, 
+1864.66, 1975.53, 2093.0, 2217.46, 2349.32, 2489.02, 2637.02, 2793.83, 2959.96,
 3135.96, 3322.44, 3520.0, 3729.31, 3951.07, 4186.01, 4434.92, 4698.63, 4978.03,
 5274.04, 5587.65, 5919.91, 6271.93, 6644.88, 7040.0, 7458.62, 7902.13]
 var tonesRand;
@@ -58,7 +58,7 @@ function init() {
 				//console.log(tonesRand);
 			}
 		});
-	
+
 		//generates random token
 		function getRandomToken() {
     		// E.g. 8 * 32 = 256 bits token
@@ -72,36 +72,36 @@ function init() {
    		 	return hex;
 		}
 
-		
-		
+
+
 		function seededRandom(max, min) {
 // 			console.log("seed: ", seed);
 			max = max || 1;
-			min = min || 0; 
-	
+			min = min || 0;
+
 			seed = (seed*9301 + 49297) % 233280;
 			var rnd = seed/ 233280;
-	
+
 			return min + rnd * (max - min);
 		}
-		
-		
+
+
 		function randOrder(array){
 			var currentIndex = array.length, temporaryValue, randomIndex;
-	
+
 			while(0 !== currentIndex) {
 				randomIndex = Math.floor(seededRandom(1, 0)*currentIndex);
 				currentIndex -= 1;
-				
+
 				temporaryValue = array[currentIndex];
 				array[currentIndex] = array[randomIndex];
 				array[randomIndex] = temporaryValue;
 			}
 				return array
 			}
-			
-		
-		
+
+
+
 };
 
 //get password input field
@@ -124,7 +124,7 @@ function playTone(freq) {
 }
 
 
-
+//loop through all the elements we've captured with PASS
 for (var i = 0; i < p.length; i++) {
 p[i].onkeypress = function() {
    var keyCode = event.which || event.keyCode || 0;
@@ -135,6 +135,3 @@ p[i].onkeypress = function() {
    playTone(tonesRand[keyCode-32]);
 }
 }
-
-
-
