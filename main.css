@@ -17,7 +17,10 @@ body {
    padding-top: 3%;
 }
 .PASS {
-   visibility: hidden;
+   /*visibility: hidden;*/
+   background-color: #EFEFEF;
+   border: none;
+
 }
 .text {
    text-align: center;
@@ -29,22 +32,16 @@ body {
 
 span {
    background-color: #CAEBF2;
-   width:50px;
+   min-width:50px;
+   min-height: 70px;
+   display:inline-block;
    border: 1px solid #A9A9A9;
 }
-.pink {
-   width: 50px;
-   height: 250;
-   fill:#FF3B3F;
-   /*border-radius: 10px;*/
-   stroke: #CAEBF2;
-   stroke-width:2px;
-}
+
 #piano {
-   padding-top:10%;
+   padding-top:5%;
    height: 400px;
    width:1000px;
-   /*background-color: blue;*/
    padding-left: 13%;
 }
 
@@ -53,7 +50,13 @@ span {
    width: 50px;
    height: 250;
    fill:white;
-   /*border-radius: 10px;*/
+   stroke: #CAEBF2;
+   stroke-width:2px;
+}
+.pink-white {
+   width: 50px;
+   height: 250;
+   fill:#FF3B3F;
    stroke: #CAEBF2;
    stroke-width:2px;
 }
@@ -61,4 +64,15 @@ span {
    width:30;
    height:150;
    fill:black;
+}
+.pink-black {
+   width:30;
+   height:150;
+   fill:#FF3B3F;
+}
+
+.octave {
+
+   font-size: .5em;
+   background-color:blue;
 }

@@ -17,36 +17,43 @@
 <body>
    <div class="container">
       <div class="text">
-      <input type="password" class="PASS"/>
+      <input type="password" class="EmmaJennaPASS"/>
       <p class="keytext"><span>Click the piano or type to discover tones.</span></p>
+      <div class="octaves">
+         <a><span class="octave">Increase Octave</span></a>
+         <span class="octave">Current Octave</span>
+         <a><span class="octave">Decrease Octave</span></a>
+      </div>
       </div>
 
+      <!-- octaves -->
+
       <svg id="piano" >
-         <rect class="white-key" id="C" onmousedown="pink()" onmouseup="back()"></rect>
-         <rect class="white-key" id="D" x="50"></rect>
-         <rect class="white-key" x="100"></rect>
-         <rect class="white-key" x="150"></rect>
-         <rect class="white-key" x="200"></rect>
-         <rect class="white-key" x="250"></rect>
-         <rect class="white-key" x="300"></rect>
-         <rect class="white-key" x="350"></rect>
-         <rect class="white-key" x="400"></rect>
-         <rect class="white-key" x="450"></rect>
-         <rect class="white-key" x="500"></rect>
-         <rect class="white-key" x="550"></rect>
-         <rect class="white-key" x="600"></rect>
-         <rect class="white-key" x="650"></rect>
+         <rect class="white-key" id="C" onclick="pink()"></rect>
+         <rect class="white-key" id="D" onclick="pink()" x="50"></rect>
+         <rect class="white-key" id="E" onclick="pink()" x="100"></rect>
+         <rect class="white-key" id="F" onclick="pink()" x="150"></rect>
+         <rect class="white-key" id="G" onclick="pink()" x="200"></rect>
+         <rect class="white-key" id="A" onclick="pink()" x="250"></rect>
+         <rect class="white-key" id="B" onclick="pink()" x="300"></rect>
+         <rect class="white-key" id="C2" onclick="pink()" x="350"></rect>
+         <rect class="white-key" id="D2" onclick="pink()" x="400"></rect>
+         <rect class="white-key" id="E2" onclick="pink()" x="450"></rect>
+         <rect class="white-key" id="F2" onclick="pink()" x="500"></rect>
+         <rect class="white-key" id="G2" onclick="pink()" x="550"></rect>
+         <rect class="white-key" id="A2" onclick="pink()" x="600"></rect>
+         <rect class="white-key" id="B2" onclick="pink()" x="650"></rect>
          <!-- black keys begin -->
-         <rect class="black-key" x="35"></rect>
-         <rect class="black-key" x="85"></rect>
-         <rect class="black-key" x="185"></rect>
-         <rect class="black-key" x="235"></rect>
-         <rect class="black-key" x="285"></rect>
-         <rect class="black-key" x="385"></rect>
-         <rect class="black-key" x="435"></rect>
-         <rect class="black-key" x="535"></rect>
-         <rect class="black-key" x="585"></rect>
-         <rect class="black-key" x="635"></rect>
+         <rect class="black-key" id="C#" onclick="pinkblack()" x="35"></rect>
+         <rect class="black-key" id="D#" onclick="pinkblack()" x="85"></rect>
+         <rect class="black-key" id="F#" onclick="pinkblack()" x="185"></rect>
+         <rect class="black-key" id="G#" onclick="pinkblack()" x="235"></rect>
+         <rect class="black-key" id="A#" onclick="pinkblack()" x="285"></rect>
+         <rect class="black-key" id="C#2" onclick="pinkblack()" x="385"></rect>
+         <rect class="black-key" id="D#2" onclick="pinkblack()" x="435"></rect>
+         <rect class="black-key" id="F#2" onclick="pinkblack()" x="535"></rect>
+         <rect class="black-key" id="G#2" onclick="pinkblack()" x="585"></rect>
+         <rect class="black-key" id="A#2" onclick="pinkblack()" x="635"></rect>
          <!-- <rect class="black-key" x="535"></rect> -->
 
       </svg>
