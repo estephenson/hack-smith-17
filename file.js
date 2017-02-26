@@ -62,21 +62,50 @@ function playTone(freq) {
 document.onkeypress = function() {
    var keyCode = event.which || event.keyCode || 0;
    playTone(dict[keyCode-32]);
-   console.log(keyCode-32);
-   console.log(dict[keyCode-32]);
+   // console.log(keyCode-32);
+   // console.log(dict[keyCode-32]);
    //show the thing on the screen
    document.querySelector('.keytext').innerHTML = "<span>"+ascii[keyCode-32]+"</span>"
    //light up the appropriate piano key
    for (element in notes) {
-      if (element.indexOf(dict[keyCode-32]) !== -1) {
-         console.log(element);
+      var noteList = notes[element];
+      var index = noteList.indexOf(dict[keyCode-32]);
+      if (index !== -1) {
+         //figure out the octave
+         //even octave
+         if (index%2 == 0) {
+            octave = index;
+            id = element
+            console.log(id);
+         } else {
+            octave = index-1;
+            id = element+2
+            console.log(id);
+         }
+         // console.log(octave);
+         //make the screen display the correct rectangle, and light it up
+         document.querySelector(".octave").innerHTML = "Current Octave: "+octave;
+         //for the white keys - have to differentitate the sharps
+         if (id[1] == "#") {
+            key = document.getElementById(id);
+            key.setAttribute("class", "pink-black");
+            setTimeout(function() {
+               key.setAttribute("class", "black-key");
+            }, 200);
+         } else {
+            key = document.getElementById(id);
+            key.setAttribute("class", "pink-white");
+            setTimeout(function () {
+               key.setAttribute("class", "white-key");
+            }, 200);
+         }
+
       }
    }
 }
 
 function incOctave() {
    var html = document.querySelector(".octave").innerHTML;
-   console.log(parseInt(html.charAt(16)));
    var newNum = parseInt(html.charAt(16))+2;
    if (newNum > 6) {
       newNum = 6;
@@ -107,8 +136,6 @@ function pink() {
       tone = notes[key.id][octave];
    }
    playTone(tone);
-   console.log(tone);
-   console.log(dict.indexOf(tone));
    document.querySelector(".keytext").innerHTML = "<span>"+ascii[dict.indexOf(tone)]+"</span>"
    setTimeout(function () {
       key.setAttribute("class", "white-key");
@@ -127,7 +154,6 @@ function pinkblack() {
    } else {
       tone = notes[key.id][octave];
    }
-   console.log(tone);
    playTone(tone);
    document.querySelector(".keytext").innerHTML = "<span>"+ascii[dict.indexOf(tone)]+"</span>"
    setTimeout(function() {
