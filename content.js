@@ -118,16 +118,15 @@ function init() {
   //puts ID in password input element	
 	var nodeList = document.getElementsByTagName("input");
 for (item in nodeList) {
-	console.log(nodeList[item]);
 	try {
 		if(nodeList[item].getAttribute("type") == "password") {
-			nodeList[item].setAttribute("id", "PASS");
+			nodeList[item].setAttribute("class", "PASS");
 		}
 	} catch(err) {}
 };
 
 //get password input field
-p = document.getElementById("PASS");
+p = document.getElementsByClassName("PASS");
 }
 
 //play a tone for a specified length of time
@@ -145,7 +144,11 @@ function playTone(freq) {
    gainNode.gain.setTargetAtTime(0, context.currentTime, 0.10);
 }
 
-p.onkeypress = function() {
+
+
+for (var i = 0; i < p.length; i++) {
+console.log(p[i]);
+p[i].onkeypress = function() {
    var keyCode = event.which || event.keyCode || 0;
    console.log(keyCode);
    console.log(dict[keyCode]);
@@ -154,6 +157,7 @@ p.onkeypress = function() {
    playTone(dict[keyCode]);
    // playTone(dict[keyCode]);
    console.log("good morning!")
+}
 }
 
 //generates random token
