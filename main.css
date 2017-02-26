@@ -39,7 +39,7 @@ span {
 }
 
 #piano {
-   padding-top:5%;
+   /*padding-top:5%;*/
    height: 400px;
    width:1000px;
    padding-left: 13%;
@@ -70,9 +70,22 @@ span {
    height:150;
    fill:#FF3B3F;
 }
-
+.octaves {
+   padding-top:5%;
+   padding-bottom:0px;
+}
 .octave {
-
-   font-size: .5em;
-   background-color:blue;
+   font-size: .4em;
+   background-color: transparent;
+   border:none;
+   color: black;
+}
+.btn {
+   background-color: #CAEBF2;
+   color: black;
+   font-size: .4em;
+}
+.btn:hover {
+   color: #A9A9A9;
+   font-size:.4em;
 }

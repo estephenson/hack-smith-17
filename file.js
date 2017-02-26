@@ -68,21 +68,29 @@ document.onkeypress = function() {
    document.querySelector('.keytext').innerHTML = "<span>"+ascii[keyCode-32]+"</span>"
    //light up the appropriate piano key
    for (element in notes) {
-      console.log(element.indexOf(dict[keyCode-32]));
       if (element.indexOf(dict[keyCode-32]) !== -1) {
          console.log(element);
       }
    }
 }
 
+function incOctave() {
+   var html = document.querySelector(".octave").innerHTML
+   console.log(parseInt(html.charAt(16)));
+   var newNum = parseInt(html.charAt(16));
+   document.querySelector(".octave").innerHTML = "<span class='octave'>Current Octave: "+newNum+"</span>"
+}
+
 function pink() {
    var key = event.target;
    key.setAttribute("class", "pink-white");
-   var octave = 0;
-   if (key.id[1] == 2) {
+   var octave = document.querySelector(".octave").innerHTML;
+   octave = octave.charAt(16);
+   octave = parseInt(octave);
+   console.log(octave)
+   if (key.id[1] == "2") {
       //second set of notes, increase octave by 1
       octave += 1;
-      console.log(octave)
       tone = notes[key.id[0]][octave];
    } else {
       tone = notes[key.id][octave];
@@ -98,13 +106,16 @@ function pink() {
 function pinkblack() {
    var key = event.target;
    key.setAttribute("class", "pink-black");
-   var octave = 0;
+   var octave = document.querySelector(".octave").innerHTML;
+   octave = octave.charAt(16);
+   octave = parseInt(octave);
    if (key.id[2] == 2) {
       octave += 1;
-      tone = notes[key.id[0]][octave];
+      tone = notes[key.id[0]+key.id[1]][octave];
    } else {
       tone = notes[key.id][octave];
    }
+   console.log(tone);
    playTone(tone);
    document.querySelector(".keytext").innerHTML = "<span>"+ascii[dict.indexOf(tone)]+"</span>"
    setTimeout(function() {
