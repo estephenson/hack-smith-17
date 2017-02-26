@@ -1,103 +1,19 @@
 // content.js
 
-//the dictionary object to hold all the key mappings
-var dict = {
-   32: 16.35,
-   33: 17.32,
-   34: 18.35,
-   35: 19.45,
-   36: 20.60,
-   37: 21.83,
-   38: 23.12,
-   39: 24.50,
-   40: 25.96,
-   41: 27.50,
-   42: 29.14,
-   43: 30.87,
-   44: 32.70,
-   45: 34.65,
-   46: 36.71,
-   47: 38.89,
-   48: 41.20,
-   49: 43.65,
-   50: 46.25,
-   51: 49.00,
-   52: 51.91,
-   53: 55.00,
-   54: 58.27,
-   55: 61.74,
-   56: 65.41,
-   57: 69.30,
-   58: 73.42,
-   59: 77.78,
-   60: 82.41,
-   61: 87.31,
-   62: 92.50,
-   63: 98.00,
-   64: 103.83,
-   65: 110.00,
-   66: 116.54,
-   67: 123.47,
-   68: 130.81,
-   69: 138.59,
-   70: 146.83,
-   71: 155.56,
-   72: 164.81,
-   73: 174.61,
-   74: 185.00,
-   75: 196.00,
-   76: 207.65,
-   77: 220.00,
-   78: 233.08,
-   79: 246.94,
-   80: 261.63,
-   81: 277.18,
-   82: 293.66,
-   83: 311.13,
-   84: 329.63,
-   85: 349.23,
-   86: 369.99,
-   87: 392.00,
-   88: 415.30,
-   89: 440.00,
-   90: 466.16,
-   91: 493.88,
-   92: 523.25,
-   93: 554.37,
-   94: 587.33,
-   95: 622.25,
-   96: 659.25,
-   97: 698.46,
-   98: 739.99,
-   99: 783.99,
-   100: 830.61,
-   101: 880.00,
-   102: 932.33,
-   103: 987.77,
-   104: 1046.50,
-   105: 1108.73,
-   106: 1174.66,
-   107: 1244.51,
-   108: 1318.51,
-   109: 1396.91,
-   110: 1479.98,
-   111: 1567.98,
-   112: 1661.22,
-   113: 1760.00,
-   114: 1864.66,
-   115: 1975.53,
-   116: 2093.00,
-   117: 2217.46,
-   118: 2349.32,
-   119: 2489.02,
-   120: 2637.02,
-   121: 2793.83,
-   122: 2959.96,
-   123: 3135.96,
-   124: 3322.44,
-   125: 3520.00,
-   126: 7902.13
-}
+var tones = [16.35, 17.32, 18.35, 19.45, 20.6, 21.83, 23.12, 24.5, 25.96, 27.5,
+29.14, 30.87, 32.7, 34.65, 36.71, 38.89, 41.2, 43.65, 46.25, 49.0, 51.91, 55.0,
+58.27, 61.74, 65.41, 69.3, 73.42, 77.78, 82.41, 87.31, 92.5, 98.0, 103.83,
+110.0, 116.54, 123.47, 130.81, 138.59, 146.83, 155.56, 164.81, 174.61, 185.0,
+196.0, 207.65, 220.0, 233.08, 246.94, 261.63, 277.18, 293.66, 311.13, 329.63,
+349.23, 369.99, 392.0, 415.3, 440.0, 466.16, 493.88, 523.25, 554.37, 587.33,
+622.25, 659.25, 698.46, 739.99, 783.99, 830.61, 880.0, 932.33, 987.77, 1046.5,
+1108.73, 1174.66, 1244.51, 1318.51, 1396.91, 1479.98, 1567.98, 1661.22, 1760.0,
+1864.66, 1975.53, 2093.0, 2217.46, 2349.32, 2489.02, 2637.02, 2793.83, 2959.96, 
+3135.96, 3322.44, 3520.0, 3729.31, 3951.07, 4186.01, 4434.92, 4698.63, 4978.03,
+5274.04, 5587.65, 5919.91, 6271.93, 6644.88, 7040.0, 7458.62, 7902.13]
+var tonesRand;
+var seed;
+var isLoad = false;
 
 //creating an audio context when the page first loads
 var context;
@@ -106,7 +22,6 @@ var p;
 document.onload = init();
 function init() {
   try {
-  	console.log("try");
     // Fix up for prefixing
     document.AudioContext = document.AudioContext||document.webkitAudioContext;
     //create a new context
@@ -117,12 +32,76 @@ function init() {
   }
   //puts ID in password input element
 	var nodeList = document.getElementsByTagName("input");
-for (item in nodeList) {
-	try {
-		if(nodeList[item].getAttribute("type") == "password") {
-			nodeList[item].setAttribute("class", "PASS");
+	for (item in nodeList) {
+		try {
+			if(nodeList[item].getAttribute("type") == "password") {
+				nodeList[item].setAttribute("class", "PASS");
+				isLoad = true;
+			}
+		} catch(err) {}
+	}
+	if (isLoad){
+		//places random token in chrome storage for user: NOT SECURE, PLACEHOLDER
+		chrome.storage.sync.get('userid', function(items) {
+    		var userid = items.userid;
+    		if (userid) {
+        		useToken(userid);
+    		} else {
+        		userid = getRandomToken();
+        		chrome.storage.sync.set({userid: userid}, function() {
+            		useToken(userid);
+        		});
+    		}
+    		function useToken(userid) {
+    			seed = parseInt(userid, 16);
+    			tonesRand = randOrder(tones);
+				//console.log(tonesRand);
+			}
+		});
+	
+		//generates random token
+		function getRandomToken() {
+    		// E.g. 8 * 32 = 256 bits token
+    		var randomPool = new Uint8Array(32);
+    		crypto.getRandomValues(randomPool);
+    		var hex = '';
+    		for (var i = 0; i < randomPool.length; ++i) {
+        		hex += randomPool[i].toString(16);
+    		}
+    	// E.g. db18458e2782b2b77e36769c569e263a53885a9944dd0a861e5064eac16f1a
+   		 	return hex;
 		}
-	} catch(err) {}
+
+		
+		
+		function seededRandom(max, min) {
+// 			console.log("seed: ", seed);
+			max = max || 1;
+			min = min || 0; 
+	
+			seed = (seed*9301 + 49297) % 233280;
+			var rnd = seed/ 233280;
+	
+			return min + rnd * (max - min);
+		}
+		
+		
+		function randOrder(array){
+			var currentIndex = array.length, temporaryValue, randomIndex;
+	
+			while(0 !== currentIndex) {
+				randomIndex = Math.floor(seededRandom(1, 0)*currentIndex);
+				currentIndex -= 1;
+				
+				temporaryValue = array[currentIndex];
+				array[currentIndex] = array[randomIndex];
+				array[randomIndex] = temporaryValue;
+			}
+				return array
+			}
+			
+		
+		
 };
 
 //get password input field
@@ -147,44 +126,15 @@ function playTone(freq) {
 
 
 for (var i = 0; i < p.length; i++) {
-console.log(p[i]);
 p[i].onkeypress = function() {
    var keyCode = event.which || event.keyCode || 0;
-   console.log(keyCode);
-   console.log(dict[keyCode]);
+   //console.log(keyCode);
+   //console.log(tonesRand[keyCode-32]);
 
 
-   playTone(dict[keyCode]);
-   // playTone(dict[keyCode]);
-   console.log("good morning!")
+   playTone(tonesRand[keyCode-32]);
 }
 }
 
-//generates random token
-function getRandomToken() {
-    // E.g. 8 * 32 = 256 bits token
-    var randomPool = new Uint8Array(32);
-    crypto.getRandomValues(randomPool);
-    var hex = '';
-    for (var i = 0; i < randomPool.length; ++i) {
-        hex += randomPool[i].toString(16);
-    }
-    // E.g. db18458e2782b2b77e36769c569e263a53885a9944dd0a861e5064eac16f1a
-    return hex;
-}
 
-//places random token in chrome storage for user: NOT SECURE, PLACEHOLDER
-chrome.storage.sync.get('userid', function(items) {
-    var userid = items.userid;
-    if (userid) {
-        useToken(userid);
-    } else {
-        userid = getRandomToken();
-        chrome.storage.sync.set({userid: userid}, function() {
-            useToken(userid);
-        });
-    }
-    function useToken(userid) {
-        console.log(userid);
-    }
-});
+
