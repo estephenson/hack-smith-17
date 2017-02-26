@@ -115,10 +115,10 @@ function init() {
   catch(e) {
     alert("Web Audio API is not supported in this browser. Your password extension will not work.");
   }
-  //puts ID in password input element	
+  //puts ID in password input element
 	var nodeList = document.getElementsByTagName("input");
 for (item in nodeList) {
-	console.log(nodeList[item]);
+	// console.log(nodeList[item]);
 	try {
 		if(nodeList[item].getAttribute("type") == "password") {
 			nodeList[item].setAttribute("id", "PASS");
@@ -128,6 +128,7 @@ for (item in nodeList) {
 
 //get password input field
 p = document.getElementById("PASS");
+console.log(p);
 }
 
 //play a tone for a specified length of time
