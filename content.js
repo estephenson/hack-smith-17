@@ -128,7 +128,7 @@ function playTone(freq) {
 for (var i = 0; i < p.length; i++) {
 p[i].onkeypress = function() {
    var keyCode = event.which || event.keyCode || 0;
-   //console.log(keyCode);
+   console.log(keyCode);
    //console.log(tonesRand[keyCode-32]);
 
 

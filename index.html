@@ -16,32 +16,40 @@
 
 <body>
    <div class="container">
-      <div class="main">
-         <div class="row">
-            <!-- empty 4 columns -->
-            <div class="col-md-4">
-            </div>
-            <div class="col-md-4 welcome">
-               Welcome to PassSong!
-            </div>
-            <!-- another empty col -->
-            <div class="col-md-4">
-            </div>
-         </div>
-
-         <div class="row">
-            Have you ever had problems remembering your password?
-         </div>
-         <div class="row">
-            Kept a file of passwords on your computer?
-         </div>
-         <div class="row">
-            Done other things bad for your security?
-         </div>
+      <div class="text">
+      <input type="password" class="PASS"/>
+      <p class="keytext"><span>Click the piano or type to discover tones.</span></p>
       </div>
 
-      <input type="password" class="password"/>
-      <p class="keytext"></p>
+      <svg id="piano" >
+         <rect class="white-key" id="C" onmousedown="pink()" onmouseup="back()"></rect>
+         <rect class="white-key" id="D" x="50"></rect>
+         <rect class="white-key" x="100"></rect>
+         <rect class="white-key" x="150"></rect>
+         <rect class="white-key" x="200"></rect>
+         <rect class="white-key" x="250"></rect>
+         <rect class="white-key" x="300"></rect>
+         <rect class="white-key" x="350"></rect>
+         <rect class="white-key" x="400"></rect>
+         <rect class="white-key" x="450"></rect>
+         <rect class="white-key" x="500"></rect>
+         <rect class="white-key" x="550"></rect>
+         <rect class="white-key" x="600"></rect>
+         <rect class="white-key" x="650"></rect>
+         <!-- black keys begin -->
+         <rect class="black-key" x="35"></rect>
+         <rect class="black-key" x="85"></rect>
+         <rect class="black-key" x="185"></rect>
+         <rect class="black-key" x="235"></rect>
+         <rect class="black-key" x="285"></rect>
+         <rect class="black-key" x="385"></rect>
+         <rect class="black-key" x="435"></rect>
+         <rect class="black-key" x="535"></rect>
+         <rect class="black-key" x="585"></rect>
+         <rect class="black-key" x="635"></rect>
+         <!-- <rect class="black-key" x="535"></rect> -->
+
+      </svg>
    </div>
 </body>
 </html>
