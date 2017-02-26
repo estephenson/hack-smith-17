@@ -12,7 +12,7 @@ var dict = [32.7, 34.65, 36.71, 38.89, 41.2, 43.65, 46.25, 49.0, 51.91, 55.0, 58
 var ascii = ['space', '!', '"', '#', '$', '%', '&', "'", '(', ')', '*', '+', ',', '-', '.', '/', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=', '>', '?', '@', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '[', '\\', ']', '^', '_', '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~']
 
 var notes = {
-   "C": [32.7, 65.41, 130.81, 261.63, 523.25, 1046.50, 2093.00, 4186.41],
+   "C": [32.7, 65.41, 130.81, 261.63, 523.25, 1046.50, 2093.00, 4186.01],
    "C#": [34.65, 69.3, 138.59, 277.18, 554.37, 1108.73, 2217.46, 4434.92],
    "D": [36.71, 73.42, 146.83, 293.66, 587.33, 1174.66, 2349.32, 4698.63],
    "D#": [38.89, 77.78, 155.56, 311.13, 622.25, 1244.51, 2489.02, 4978.03],
@@ -75,10 +75,22 @@ document.onkeypress = function() {
 }
 
 function incOctave() {
-   var html = document.querySelector(".octave").innerHTML
+   var html = document.querySelector(".octave").innerHTML;
    console.log(parseInt(html.charAt(16)));
-   var newNum = parseInt(html.charAt(16));
-   document.querySelector(".octave").innerHTML = "<span class='octave'>Current Octave: "+newNum+"</span>"
+   var newNum = parseInt(html.charAt(16))+2;
+   if (newNum > 6) {
+      newNum = 6;
+   }
+   document.querySelector(".octave").innerHTML = "Current Octave: "+newNum;
+}
+
+function decOctave() {
+   var html = document.querySelector(".octave").innerHTML;
+   var newNum = parseInt(html.charAt(16)) -2;
+   if (newNum < 0) {
+      newNum = 0;
+   }
+   document.querySelector(".octave").innerHTML ="Current Octave: "+newNum;
 }
 
 function pink() {
@@ -87,7 +99,6 @@ function pink() {
    var octave = document.querySelector(".octave").innerHTML;
    octave = octave.charAt(16);
    octave = parseInt(octave);
-   console.log(octave)
    if (key.id[1] == "2") {
       //second set of notes, increase octave by 1
       octave += 1;
@@ -95,8 +106,9 @@ function pink() {
    } else {
       tone = notes[key.id][octave];
    }
-   console.log(tone);
    playTone(tone);
+   console.log(tone);
+   console.log(dict.indexOf(tone));
    document.querySelector(".keytext").innerHTML = "<span>"+ascii[dict.indexOf(tone)]+"</span>"
    setTimeout(function () {
       key.setAttribute("class", "white-key");
